@@ -16,6 +16,15 @@ function showStuff() {
     deck.appendChild(temp);
   }
 };
+
+let eachCard = document.querySelectorAll('.card');
+
+eachCard.forEach(function coverCards (item){
+  item.classList.toggle('match',false);
+  item.classList.toggle('open',false);
+  item.classList.toggle('show',false);
+})
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -36,12 +45,24 @@ function shuffle(array) {
     }
 
     return array;
+
+
 }
+
+
+clearDeck();
 
 shuffle(array);
 
-clearDeck();
 showStuff();
+
+eachCard.forEach(function (item){
+  item.addEventListener("click", function (){
+    item.classList.toggle('open');
+    item.classList.toggle('show');
+  })
+})
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
