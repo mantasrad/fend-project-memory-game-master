@@ -1,8 +1,21 @@
 /*
  * Create a list that holds all of your cards
  */
+let card = document.getElementsByClassName('card');
+let array = Array.from(card);
 
+let deck = document.querySelector('.deck');
 
+function clearDeck(){
+  deck.innerHTML = ""
+}
+
+function showStuff() {
+  for (let i = 0; i < array.length; i++){
+    let temp = array[i];
+    deck.appendChild(temp);
+  }
+};
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -25,6 +38,10 @@ function shuffle(array) {
     return array;
 }
 
+shuffle(array);
+
+clearDeck();
+showStuff();
 
 /*
  * set up the event listener for a card. If a card is clicked:
