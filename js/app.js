@@ -56,14 +56,32 @@ shuffle(array);
 
 showStuff();
 
-eachCard.forEach(function (item){
-  item.addEventListener("click", function (){
-    item.classList.toggle('open');
-    item.classList.toggle('show');
-  })
+let icon = document.querySelectorAll('.icon');
+let iconArray = Array.from(icon);
+
+const testArray = [];
+
+icon.forEach(function (i){
+ let klases = i.classList;
+ let korteles = i.parentNode.id;
+ i.parentNode.addEventListener("click", function (){
+   i.parentNode.classList.toggle('open');
+   i.parentNode.classList.toggle('show');
+ });
+ testArray.push( {klase: klases[1], kortele: korteles, guessed: false} )
 })
 
 
+// icon.forEach(function (i){
+//  let test = i.attributes;
+//  console.log(test["0"].nodeValue)
+// })
+
+// for (a = 0; a < array.length; a++){
+//   if (icon.classList.contains('show')){
+//     icon[a].
+// }
+// }
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
