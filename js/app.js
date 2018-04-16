@@ -60,16 +60,42 @@ let icon = document.querySelectorAll('.icon');
 let iconArray = Array.from(icon);
 
 const testArray = [];
+let click
+let previousClick
 
 icon.forEach(function (i){
  let klases = i.classList;
  let korteles = i.parentNode.id;
- i.parentNode.addEventListener("click", function (){
-   i.parentNode.classList.toggle('open');
-   i.parentNode.classList.toggle('show');
- });
+ let cardElement = i.parentNode
  testArray.push( {klase: klases[1], kortele: korteles, guessed: false} )
+cardElement.addEventListener("click", function (){
+   cardElement.classList.toggle('open');
+   cardElement.classList.toggle('show');
+
+previousClick = click;
+click = this;
+
+if (previousClick && (click.classList[2] == previousClick.classList[2]) && click.id !== previousClick.id && (previousClick.classList.contains('match') === false)) {
+ if (click.childNodes[1].classList[1] == previousClick.childNodes[1].classList[1]){
+   click.classList.toggle('match');
+   previousClick.classList.toggle('match');
+
+ } else {
+   setTimeout (function(){
+     click.classList.toggle('open');
+     previousClick.classList.toggle('open');
+     click.classList.toggle('show');
+     previousClick.classList.toggle('show');
+   }, 1500)
+
+ }
+}
+
+ });
+
 })
+
+
 
 
 // icon.forEach(function (i){
