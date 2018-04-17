@@ -58,42 +58,53 @@ showStuff();
 
 let icon = document.querySelectorAll('.icon');
 let iconArray = Array.from(icon);
-
-const testArray = [];
 let click
 let previousClick
 
+let isIncorrect
+
 icon.forEach(function (i){
- let klases = i.classList;
- let korteles = i.parentNode.id;
  let cardElement = i.parentNode
- testArray.push( {klase: klases[1], kortele: korteles, guessed: false} )
-cardElement.addEventListener("click", function (){
-   cardElement.classList.toggle('open');
-   cardElement.classList.toggle('show');
+cardElement.addEventListener("click", addClicks);
+
+// if (isIncorrect) {
+// cardElement.removeEventListener("click", addClicks);
+// }
+
+function addClicks(){
+   if(!isIncorrect){
+   cardElement.classList.add('open');
+   cardElement.classList.add('show');
 
 previousClick = click;
 click = this;
 
+//below part checks if it is a match or no match
 if (previousClick && (click.classList[2] == previousClick.classList[2]) && click.id !== previousClick.id && (previousClick.classList.contains('match') === false)) {
  if (click.childNodes[1].classList[1] == previousClick.childNodes[1].classList[1]){
-   click.classList.toggle('match');
-   previousClick.classList.toggle('match');
+   click.classList.add('match');
+   previousClick.classList.add('match');
 
  } else {
+   isIncorrect = true;
+   click.classList.add('nomatch');
+   previousClick.classList.add('nomatch');
    setTimeout (function(){
-     click.classList.toggle('open');
-     previousClick.classList.toggle('open');
-     click.classList.toggle('show');
-     previousClick.classList.toggle('show');
-   }, 1500)
+     click.classList.remove('open');
+     previousClick.classList.remove('open');
+     click.classList.remove('show');
+     previousClick.classList.remove('show');
+     click.classList.remove('nomatch');
+     previousClick.classList.remove('nomatch');
+     isIncorrect = false;
+   }, 1000)
 
+   }
+  }
  }
 }
 
- });
-
-})
+});
 
 
 
