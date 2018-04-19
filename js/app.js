@@ -1,10 +1,16 @@
 /*
  * Create a list that holds all of your cards
  */
+let timer = 0;
 let card = document.getElementsByClassName('card');
 let array = Array.from(card);
-
+let moves
+moves = 0;
+document.getElementsByClassName('moves')[0].textContent = `${moves}`;
 let deck = document.querySelector('.deck');
+let stars = document.getElementById('stars');
+let firstStar = stars.childNodes[1];
+
 
 function clearDeck(){
   deck.innerHTML = ""
@@ -67,12 +73,11 @@ icon.forEach(function (i){
  let cardElement = i.parentNode
 cardElement.addEventListener("click", addClicks);
 
-// if (isIncorrect) {
-// cardElement.removeEventListener("click", addClicks);
-// }
 
 function addClicks(){
+  //if prevents 3rd card to be clicked
    if(!isIncorrect){
+
    cardElement.classList.add('open');
    cardElement.classList.add('show');
 
@@ -81,11 +86,22 @@ click = this;
 
 //below part checks if it is a match or no match
 if (previousClick && (click.classList[2] == previousClick.classList[2]) && click.id !== previousClick.id && (previousClick.classList.contains('match') === false)) {
+moves++
+  document.getElementsByClassName('moves')[0].textContent = `${moves}`;
+  if (moves > 19 && moves < 21){
+    stars.innerHTML = `<li><i class="fa fa-star"></i></li>`;
+    //stars.removeChild(stars.childNodes[3]);
+  } else if (moves > 14 && moves <16){
+    stars.innerHTML = `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>`;
+    //stars.removeChild(stars.childNodes[5]);
+  }
  if (click.childNodes[1].classList[1] == previousClick.childNodes[1].classList[1]){
    click.classList.add('match');
    previousClick.classList.add('match');
-
+   document.getElementsByClassName('moves')[0].textContent = `${moves}`;
  } else {
+   document.getElementsByClassName('moves')[0].textContent = `${moves}`;
    isIncorrect = true;
    click.classList.add('nomatch');
    previousClick.classList.add('nomatch');
@@ -105,6 +121,30 @@ if (previousClick && (click.classList[2] == previousClick.classList[2]) && click
 }
 
 });
+
+setInterval(function(){
+  timer++ },
+ 1000);
+
+let restart = document.getElementsByClassName('restart')[0];
+restart.addEventListener('click', function (){
+  eachCard.forEach(function (item){
+    item.classList.remove('match');
+    item.classList.remove('open');
+    item.classList.remove('show');
+  })
+  shuffle(array);
+  showStuff();
+  timer = 0;
+  moves = 0;
+  // let tempStar = firstStar.cloneNode(true);
+  // stars.appendChild(tempStar);
+  stars.innerHTML = `<li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>
+  <li><i class="fa fa-star"></i></li>`
+  document.getElementsByClassName('moves')[0].textContent = `${moves}`;
+})
+
 
 
 
