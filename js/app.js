@@ -137,8 +137,10 @@ let stats = document.getElementsByClassName('stats')[0].childNodes[1]
 let statsBox = document.getElementsByClassName('congratulations')[0];
 
 let restart = document.getElementsByClassName('restart')[0];
-restart.addEventListener('click', startOver());
-function startOver (){
+restart.addEventListener('click', function(){
+  startNew();
+});
+function startNew (){
   eachCard.forEach(function (item){
     item.classList.remove('match');
     item.classList.remove('open');
@@ -164,11 +166,11 @@ function printStats(){
   statsBox.classList.remove('hidden');
   stats.textContent = `You have spent ${timer} seconds and made ${moves} moves!
   You seem to have a memory of a fish ;)`;
-  stats.innerHTML += zvaigzdutes;
+  stats.innerHTML += '<br>' + zvaigzdutes;
 }
 
 restartButton.addEventListener('click', function(){
-  startOver()}
+  startNew()}
 );
 
 noRestartButton.addEventListener('click', function(){
