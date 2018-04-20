@@ -10,7 +10,10 @@ document.getElementsByClassName('moves')[0].textContent = `${moves}`;
 let deck = document.querySelector('.deck');
 let stars = document.getElementById('stars');
 let firstStar = stars.childNodes[1];
-
+let matches = 0;
+let restartButton = document.getElementById('yes');
+let noRestartButton = document.getElementById('no');
+let zvaigzdutes = stars.innerHTML;
 
 function clearDeck(){
   deck.innerHTML = ""
@@ -100,6 +103,10 @@ moves++
    click.classList.add('match');
    previousClick.classList.add('match');
    document.getElementsByClassName('moves')[0].textContent = `${moves}`;
+   matches += 2;
+   if (matches === 16) {
+     printStats();
+   }
  } else {
    document.getElementsByClassName('moves')[0].textContent = `${moves}`;
    isIncorrect = true;
@@ -126,8 +133,12 @@ setInterval(function(){
   timer++ },
  1000);
 
+let stats = document.getElementsByClassName('stats')[0].childNodes[1]
+let statsBox = document.getElementsByClassName('congratulations')[0];
+
 let restart = document.getElementsByClassName('restart')[0];
-restart.addEventListener('click', function (){
+restart.addEventListener('click', startOver());
+function startOver (){
   eachCard.forEach(function (item){
     item.classList.remove('match');
     item.classList.remove('open');
@@ -142,12 +153,27 @@ restart.addEventListener('click', function (){
   stars.innerHTML = `<li><i class="fa fa-star"></i></li>
   <li><i class="fa fa-star"></i></li>
   <li><i class="fa fa-star"></i></li>`
+  statsBox.classList.add('hidden');
   document.getElementsByClassName('moves')[0].textContent = `${moves}`;
+}
+
+
+
+
+function printStats(){
+  statsBox.classList.remove('hidden');
+  stats.textContent = `You have spent ${timer} seconds and made ${moves} moves!
+  You seem to have a memory of a fish ;)`;
+  stats.innerHTML += zvaigzdutes;
+}
+
+restartButton.addEventListener('click', function(){
+  startOver()}
+);
+
+noRestartButton.addEventListener('click', function(){
+  statsBox.classList.add('hidden');
 })
-
-
-
-
 
 // icon.forEach(function (i){
 //  let test = i.attributes;
