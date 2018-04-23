@@ -71,7 +71,7 @@ let previousClick;
 
 let isIncorrect;
 
-icon.forEach(function(i) {
+function clickTAG(i) {
     let cardElement = i.parentNode;
     cardElement.addEventListener("click", addClicks);
 
@@ -126,15 +126,17 @@ icon.forEach(function(i) {
         }
     }
 
-});
+}
+
+icon.forEach(clickTAG);
 
 //timer
 setInterval(function() {
-    timer++;
-    minutes = Math.floor(timer / 60);
-    seconds = timer - minutes * 60;
-    time.innerHTML = `${minutes} min and ${seconds} sec`;
-}, 1000);
+        timer++;
+        minutes = Math.floor(timer / 60);
+        seconds = timer - minutes * 60;
+        time.innerHTML = `${minutes} min and ${seconds} sec`;
+    },1000);
 
 let stats = document.getElementsByClassName('stats')[0].childNodes[1];
 let statsBox = document.getElementsByClassName('congratulations')[0];
@@ -178,6 +180,8 @@ function printStats() {
         stats.innerHTML += '<br>' + `<li><i class="fa fa-star"></i></li>`;
     }
 }
+
+
 
 noRestartButton.addEventListener('click', function() {
     statsBox.classList.add('hidden');
